@@ -16,8 +16,8 @@
                 <li><a href="{% url 'home' %}">Home</a></li>
             </ul>
             <ul>
-                <li><a href="{% url 'database' %}">Database</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="{% url 'fetch_data' %}">Fetch data</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
         </nav>
@@ -25,7 +25,6 @@
 
     <main>
         {% block content %}
-        <!-- Default content goes here -->
         {% endblock %}
     </main>
 

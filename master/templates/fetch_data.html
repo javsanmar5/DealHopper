@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Fetch data{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/fetch_data.css' %}">
+
+<p>Here you can repopulate the database with the last products. You can fetch the data for every web or select just one web.</p>
+<p>At the moment only MediaMarkt is implemented</p>
+
+{% if message %}
+    <p>{{ message }}</p>
+{% endif %}
+
+<form method="post" action="{% url 'fetch_data' %}?shop=mediamarkt">
+    {% csrf_token %}
+    <button type="submit">MediaMarkt</button>
+</form>
+
+<form method="post" action="{% url 'fetch_data' %}?shop=mas_movil">
+    {% csrf_token %}
+    <button type="submit">Más movil</button>
+</form>
+
+<form method="post" action="{% url 'fetch_data' %}?shop=phone_house">
+    {% csrf_token %}
+    <button type="submit">Phone House</button>
+</form>
+{% endblock %}

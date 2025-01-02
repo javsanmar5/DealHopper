@@ -1,0 +1,51 @@
+.about-section, .technologies-section, .information-section {
+    text-align: left;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.github-link {
+    color: var(--main-blue);
+    text-decoration: none;
+}
+
+.github-link:hover {
+    text-decoration: underline;
+}
+
+h2 {
+    color: var(--main-blue);
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+
+.technologies-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.technologies-section ul li {
+    margin: 10px 0;
+    display: flex; 
+    align-items: center;
+}
+
+
+ul li span {
+    font-weight: bold;
+    margin-right: 5px; 
+}
+
+@media (max-width: 600px) {
+    .about-section, .technologies-section {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+}
