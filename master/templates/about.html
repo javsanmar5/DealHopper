@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/about.css' %}">
+
+<section>
+    <h1>About</h1>
+    <p>
+        Thank you for visiting! Here’s some additional information you might find useful. 
+        For more details, visit the GitHub repository: 
+        <a class="github-link" href="http://github.com/javsanmar5/DealHopper" target="_blank">
+            http://github.com/javsanmar5/DealHopper
+        </a>
+    </p>
+</section>
+<div class="about-section">
+    <h2>DealHopper</h2>
+    <p>
+        DealHopper is a smartphone price comparator designed to help users find the best deals across multiple online stores, such as PcComponentes, MediaMarkt, and PhoneHouse. With its intuitive interface and powerful features, DealHopper simplifies the process of price comparison and recommendation.
+    </p>
+</div>
+<div class="technologies-section">
+    <h2>Technologies</h2>
+    <p>DealHopper is built using the following tools and frameworks:</p>
+    <ul>
+        <li><span>Django:</span> Backend framework for managing the web application.</li>
+        <li><span>BeautifulSoup:</span> For scraping smartphone prices and details from online stores.</li>
+        <li><span>Whoosh:</span> For implementing an efficient search index.</li>
+        <li><span>Recommendation System (RS):</span> Provides personalized recommendations based on user preferences.</li>
+    </ul>
+</div>
+<div class="information-section">
+    <h2>Important Information</h2>
+    <p>
+        The shop <strong>MediaMarkt</strong> uses lazy loading for its content, which makes using 
+        <em>BeautifulSoup</em> suboptimal. However, this project is focused on learning, and the use of this technology 
+        is intentional for educational purposes.
+    </p>
+    <p>
+        The shop <strong>MásMovil</strong> features custom prices that vary across different months, making direct 
+        comparisons more challenging. Despite this, it is included as there were limited alternative options. 
+        Other shops, such as <strong>PcComponentes</strong> and <strong>ElCorteInglés</strong>, return a 
+        <code>403 Forbidden</code> response when accessed via Python's HTTP libraries.
+    </p>
+</div>
+
+{% endblock %}
