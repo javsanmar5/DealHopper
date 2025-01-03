@@ -31,8 +31,8 @@ Follow these steps to set up and run DealHopper on your local machine:
 
 4. Create and apply the migrations
    ```bash
-      python manage.py makemigrations
-      python manage.py migrate
+   python manage.py makemigrations
+   python manage.py migrate
    ```
 
 ## Run the Server
