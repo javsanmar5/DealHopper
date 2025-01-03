@@ -1,6 +1,6 @@
 # DealHopper
 
-DealHopper is a smartphone price comparator designed to help users find the best deals across multiple online stores, such as PcComponentes, MediaMarkt, and PhoneHouse. With its intuitive interface and powerful features, DealHopper simplifies the process of price comparison and recommendation.
+DealHopper is a smartphone price comparator designed to help users find the best deals across multiple online stores, such as MediaMarkt, PhoneHouse, Backmarket and Cleverbuy. With its intuitive interface and powerful features, DealHopper simplifies the process of price comparison and recommendation.
 
 ## Technologies Used
 DealHopper is built using the following tools and frameworks:
