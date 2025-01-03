@@ -1,44 +1,36 @@
 import os
-import shutil
-from whoosh.fields import Schema, TEXT, NUMERIC, KEYWORD, DATETIME
-from whoosh.index import create_in
-from datetime import datetime
 
-def store_data():
+from whoosh.fields import BOOLEAN, ID, NUMERIC, TEXT, Schema
+from whoosh.index import create_in, open_dir
+
+from master.models import Product
+
+
+def _create_product_index():
     schema = Schema(
-        name=TEXT(stored=True),
-        brand=KEYWORD(stored=True),
+        smartphone_name=TEXT(stored=True),
+        store_name=TEXT(stored=True),
         price=NUMERIC(stored=True, decimal_places=2),
-        shop=KEYWORD(stored=True),
-        last_updated=DATETIME(stored=True),
+        link=ID(stored=True),
+        refurbished=BOOLEAN(stored=True)
     )
+    index_dir = "indexdir"
+    if not os.path.exists(index_dir):
+        os.mkdir(index_dir)
+        create_in(index_dir, schema)
+    return open_dir(index_dir)
 
-    index_dir = "whoosh_index"
-    if os.path.exists(index_dir):
-        shutil.rmtree(index_dir)
-    os.mkdir(index_dir)
 
-    ix = create_in(index_dir, schema=schema)
+def index_products():
+    ix = _create_product_index()
     writer = ix.writer()
-
-    # TODO: Fetch data from scrapping module
-    data = fetch_smartphone_data()  
-    
-    for item in data:
+    for product in Product.objects.all():
         writer.add_document(
-            name=item['name'],
-            brand=item['brand'],
-            price=item['price'],
-            shop=item['shop'],
-            last_updated=datetime.now(),
+            smartphone_name=product.smartphone.name,
+            store_name=product.store.name,
+            price=product.price,
+            link=product.link,
+            refurbished=product.refurbished
         )
-
     writer.commit()
-    print(f"Indexing complete. Indexed {len(data)} items.")
 
-def fetch_smartphone_data():
-    # Example placeholder function
-    return [
-        {"name": "Phone A", "brand": "BrandX", "price": 299.99, "shop": "Shop1"},
-        {"name": "Phone B", "brand": "BrandY", "price": 499.99, "shop": "Shop2"},
-    ]

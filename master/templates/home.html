@@ -10,12 +10,12 @@
 <h1>Welcome to DealHopper</h1>
 <p>Hop to the best deals</p>
 
-<div class="search-container">
+<form class="search-container" action="{% url 'search' %}" method="get">
     <input type="text" id="search" name="search" placeholder="Search..." class="search-input">
     <button type="submit" class="search-button">
-        <i class="fas fa-search"></i> 
+        <i class="fas fa-search"></i>
     </button>
-</div>
+</form>
 
 <div class="phones-container">
     {% for phone in phones %}

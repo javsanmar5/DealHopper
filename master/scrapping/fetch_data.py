@@ -8,6 +8,7 @@ from decimal import Decimal
 from bs4 import BeautifulSoup
 
 from master.models import Brand, Product, Smartphone, Store
+from master.search.indexer import index_products
 
 if (not os.environ.get('PYTHONHTTPSVERIFY', '') and 
         getattr(ssl, '_create_unverified_context', None)):
@@ -22,21 +23,27 @@ BASE_URLS = {
 }
 
 def scrap_data(shop: str) -> None:
-    match shop:
-        case 'mediamarkt':
-            fetch_mediamarkt()
-        case 'phonehouse':
-            fetch_phonehouse()
-        case 'backmarket':
-            fetch_backmarket()
-        case 'cleverbuy':
-            fetch_cleverbuy()
-        case _:
-            fetch_mediamarkt()
-            fetch_phonehouse()
-            fetch_cleverbuy()
-            fetch_backmarket()
-            
+    try:
+        match shop:
+            case 'mediamarkt':
+                fetch_mediamarkt()
+            case 'phonehouse':
+                fetch_phonehouse()
+            case 'backmarket':
+                fetch_backmarket()
+            case 'cleverbuy':
+                fetch_cleverbuy()
+            case 'all':
+                fetch_mediamarkt()
+                fetch_phonehouse()
+                fetch_backmarket()
+                fetch_cleverbuy()
+            case _:
+                raise ValueError(f"Invalid parameter: {shop}")
+        
+        index_products()
+    except Exception as e:
+        print(f"Error during scraping or indexing: {e}")
 
 # The num of pages can be changed, its set to 5 by default for performance.
 def fetch_mediamarkt(num_pages: int = 5) -> None:
@@ -86,7 +93,6 @@ def fetch_phonehouse() -> None:
     f = urllib.request.urlopen(req)
     soup = BeautifulSoup(f, 'lxml')
     elements =  soup.find_all('div', class_="item-listado-final")
-    print(len(elements))
 
     for element in elements:
 

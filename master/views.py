@@ -1,8 +1,11 @@
 from django.shortcuts import redirect, render
-from .scrapping.fetch_data import scrap_data 
+
 from master.models import Smartphone
 
-# Create your views here.
+from .scrapping.fetch_data import scrap_data
+from .search.search import search_products
+
+
 def home(request):
     phones = Smartphone.objects.all()
     return render(request, "home.html", {'phones': phones})
@@ -10,11 +13,17 @@ def home(request):
 def about(request):
     return render(request, "about.html")
     
+def search_view(request):
+    query = request.GET.get("search", "")
+    results = search_products(query) if query else []
+    return render(request, "search_results.html", {"results": results})
+
+    
 def fetch_data(request):
 
     if request.method == "GET" and request.GET.keys():
         print("Redirecting to /fetch-data without parameters...")
-        return redirect('fetch_data')  # Replace 'fetch_data' with your URL pattern name
+        return redirect('fetch_data') 
 
     shop = request.GET.get('shop', None)
     message = ""
