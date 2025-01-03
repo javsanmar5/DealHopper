@@ -23,4 +23,8 @@
     {% endfor %}
 </div>
 
+{% if phones|length == 0 %}
+    <p class="no-phones-message">Hi there! Start by fetching data to see available phones.</p>
+{% endif %}
+
 {% endblock %}
