@@ -10,21 +10,37 @@
 <h1>Welcome to DealHopper</h1>
 <p>Hop to the best deals</p>
 
-<form class="search-container" action="{% url 'search' %}" method="get">
-    <input type="text" id="search" name="search" placeholder="Search..." class="search-input">
+<form class="search-container" action="{% url 'search' %}" method="get" onsubmit="return validateSearch()">
+    <input type="text" id="search" name="search" placeholder="Redmi Note 13..." class="search-input">
     <button type="submit" class="search-button">
         <i class="fas fa-search"></i>
     </button>
 </form>
+<p id="error-message" style="color: red; display: none;">Please enter a phone</p>
 
 <div class="phones-container">
     {% for phone in phones %}
-        <div class="phone-card">{{ phone.name }}</div>
+        <a class="phone-card" href="{% url 'search' %}?search={{ phone.name }}">{{ phone.name }}</a>
     {% endfor %}
 </div>
 
 {% if phones|length == 0 %}
     <p class="no-phones-message">Hi there! Start by fetching data to see available phones.</p>
 {% endif %}
+
+<script>
+function validateSearch() {
+    const searchInput = document.getElementById('search').value.trim();
+    const errorMessage = document.getElementById('error-message');
+
+    if (searchInput === '') {
+        errorMessage.style.display = 'block'; 
+        return false;
+    } else {
+        errorMessage.style.display = 'none'; 
+        return true;
+    }
+}
+</script>
 
 {% endblock %}
