@@ -7,19 +7,47 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/fetch_data.css' %}">
 
 <p>Here you can repopulate the database with the last products. You can fetch the data for every web or select just one web.</p>
-<p>At the moment only MediaMarkt is implemented</p>
+
+<form method="post" action="{% url 'fetch_data' %}">
+    {% csrf_token %}
+    <button type="submit">Fetch every web</button>
+</form>
+
+<div class="fetch-one-web-container">
+    <form method="post" action="{% url 'fetch_data' %}?shop=mediamarkt">
+        {% csrf_token %}
+        <button class="fetch-one-web" type="submit">
+            <img src="{% static 'images/logo-mediamarkt.png' %}" alt="MediaMarkt" class="shop-img">
+        </button>
+    </form>
+    
+    <form method="post" action="{% url 'fetch_data' %}?shop=phonehouse">
+        {% csrf_token %}
+        <button class="fetch-one-web" type="submit">
+            <img src="{% static 'images/logo-phonehouse.jpg' %}" alt="Phone House" class="shop-img">
+        </button>
+    </form>
+
+    <form method="post" action="{% url 'fetch_data' %}?shop=cleverbuy">
+        {% csrf_token %}
+        <button class="fetch-one-web" type="submit">
+            <img src="{% static 'images/logo-cleverbuy.jpg' %}" alt="Cleverbuy" class="shop-img">
+        </button>
+    </form>
+    
+    <form method="post" action="{% url 'fetch_data' %}?shop=backmarket">
+        {% csrf_token %}
+        <button class="fetch-one-web" type="submit">
+            <img src="{% static 'images/logo-backmarket.jpg' %}" alt="Backmarket" class="shop-img">
+        </button>
+    </form>
+</div>
 
 {% if message %}
     <p>{{ message }}</p>
 {% endif %}
 
-<form method="post" action="{% url 'fetch_data' %}?shop=mediamarkt">
-    {% csrf_token %}
-    <button type="submit">MediaMarkt</button>
-</form>
+<br>
+<p>New shops coming soon!</p>
 
-<form method="post" action="{% url 'fetch_data' %}?shop=phonehouse">
-    {% csrf_token %}
-    <button type="submit">Phone House</button>
-</form>
 {% endblock %}

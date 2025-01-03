@@ -1,9 +1,11 @@
 from django.shortcuts import redirect, render
 from .scrapping.fetch_data import scrap_data 
+from master.models import Smartphone
 
 # Create your views here.
 def home(request):
-    return render(request, "home.html")
+    phones = Smartphone.objects.all()
+    return render(request, "home.html", {'phones': phones})
 
 def about(request):
     return render(request, "about.html")

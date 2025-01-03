@@ -1,5 +1,70 @@
+form {
+    display: inline-block;
+    margin: 10px;
+}
 
-.fetch-buttons button {
-    margin: 15px;
+button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+button[type="submit"] {
+    color: black;
+    border-radius: 5px;
+}
+
+button[type="submit"]:hover {
+    transform: scale(1.05);
+}
+
+.fetch-one-web-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.fetch-one-web {
+    display: block;
+    position: relative;
+    background-color: #fff;
+    border-radius: 8px;
+    width: 350px; 
+    height: 200px; 
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
     padding: 10px;
+    margin: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.shop-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; 
+    border-radius: 8px;
+}
+
+.fetch-one-web span {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    background-color: var(--light-gray);
+    padding: 5px 0;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.fetch-one-web:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
