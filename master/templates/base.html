@@ -12,10 +12,11 @@
 <body>
     <header>
         <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-            </ul>
-            <ul>
+            <div class="logo-container">
+                <a href="{% url 'home' %}"><img src="{% static 'images/logo-1.webp' %}" alt="DealHopper Logo" width="100"></a>
+                <a href="{% url 'home' %}">DealHopper</a>
+            </div>
+                <ul>
                 <li><a href="{% url 'fetch_data' %}">Fetch data</a></li>
                 <li><a href="{% url 'about' %}">About</a></li>
                 <li><a href="#">Contact</a></li>

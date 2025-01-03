@@ -85,8 +85,8 @@ def fetch_phonehouse() -> None:
     req = urllib.request.Request(base_url) 
     f = urllib.request.urlopen(req)
     soup = BeautifulSoup(f, 'lxml')
-
     elements =  soup.find_all('div', class_="item-listado-final")
+    print(len(elements))
 
     for element in elements:
 
