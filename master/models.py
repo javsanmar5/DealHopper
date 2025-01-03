@@ -46,6 +46,7 @@ class Product(models.Model):
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     link = models.URLField(max_length=200, null=True)
+    refurbished = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.smartphone.name} in {self.store.name} - ${self.price}"

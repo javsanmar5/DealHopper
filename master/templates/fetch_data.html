@@ -18,12 +18,7 @@
     <button type="submit">MediaMarkt</button>
 </form>
 
-<form method="post" action="{% url 'fetch_data' %}?shop=mas_movil">
-    {% csrf_token %}
-    <button type="submit">Más movil</button>
-</form>
-
-<form method="post" action="{% url 'fetch_data' %}?shop=phone_house">
+<form method="post" action="{% url 'fetch_data' %}?shop=phonehouse">
     {% csrf_token %}
     <button type="submit">Phone House</button>
 </form>
