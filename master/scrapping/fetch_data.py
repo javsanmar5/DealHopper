@@ -79,7 +79,7 @@ def fetch_mediamarkt(num_pages: int = 5) -> None:
 
 
 def fetch_phonehouse() -> None:
-    store, created = Store.objects.get_or_create(name='MediaMarkt')
+    store, created = Store.objects.get_or_create(name='PhoneHouse')
 
     base_url = BASE_URLS['phonehouse']
     req = urllib.request.Request(base_url) 
