@@ -15,9 +15,14 @@ class Brand(models.Model):
 
 
 class Smartphone(models.Model):
+    name = models.CharField(max_length=100)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, primary_key=True)
-
+    color = models.CharField(max_length=100, null=True)
+    storage = models.IntegerField(null=True)
+    ram = models.IntegerField(null=True)
+    screen_size = models.DecimalField(max_digits=4, decimal_places=2, null=True)
+    battery = models.IntegerField(null=True)
+    
     def __str__(self):
         pass
 

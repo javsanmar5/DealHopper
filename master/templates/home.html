@@ -20,7 +20,7 @@
 
 <div class="phones-container">
     {% for phone in phones %}
-        <a class="phone-card" href="{% url 'search' %}?search={{ phone.name }}">{{ phone.name }}</a>
+        <a class="phone-card" href="{% url 'search' %}?search={{ phone }}">{{ phone }}</a>
     {% endfor %}
 </div>
 

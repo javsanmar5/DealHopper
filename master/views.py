@@ -7,8 +7,8 @@ from .search.search import search_products
 
 
 def home(request):
-    phones = Smartphone.objects.all()
-    return render(request, "home.html", {'phones': phones})
+    phone_names = Smartphone.objects.values_list('name', flat=True).distinct()
+    return render(request, "home.html", {'phones': phone_names})
 
 def about(request):
     return render(request, "about.html")
