@@ -2,8 +2,10 @@
 {% load static %}
 
 {% block content %}
+<script src="{% static 'js/validateSearch.js' %}" defer></script>
 <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
 <h1>Welcome to DealHopper</h1>
 <p>Hop to the best deals</p>
@@ -25,20 +27,5 @@
 {% if phones|length == 0 %}
     <p class="no-phones-message">Hi there! Start by fetching data to see available phones.</p>
 {% endif %}
-
-<script>
-function validateSearch() {
-    const searchInput = document.getElementById('search').value.trim();
-    const errorMessage = document.getElementById('error-message');
-
-    if (searchInput === '') {
-        errorMessage.style.display = 'block'; 
-        return false;
-    } else {
-        errorMessage.style.display = 'none'; 
-        return true;
-    }
-}
-</script>
 
 {% endblock %}
