@@ -70,7 +70,7 @@ def fetch_mediamarkt(num_pages: int = 5) -> None:
 
                 name_and_brand = content[0].replace('Móvil - ', '').strip().split(' ', 1)
                 brand = name_and_brand[0].upper()
-                name = name_and_brand[1]
+                name = name_and_brand[1].capitalize()
 
                 color = content[1].strip().capitalize() if 'GB' not in content[1] else None
                 storage = _find_by_keyword(content, 'GB', exclude='RAM')
