@@ -78,7 +78,8 @@ def fetch_mediamarkt(num_pages: int = 5) -> None:
                 screen_size = _find_by_keyword(content, '"') 
                 battery = _find_by_keyword(content, 'mAh')
                 
-                price = _parse_price(element.find('span', class_="sc-e0c7d9f7-0 bPkjPs").text)
+                price = _parse_price(element.find_all('span', class_="sc-e0c7d9f7-0 bPkjPs")[-1].text)
+
                 link = "https://www.mediamarkt.es" + element.find('a', class_="sc-2fa46f1d-1 hHoKle sc-66851cef-0 dEaRKk")['href']
 
                 brand_instance, created = Brand.objects.get_or_create(name=brand)
