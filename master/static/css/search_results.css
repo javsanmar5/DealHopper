@@ -1,0 +1,40 @@
+.results-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.result-item {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.result-content {
+    display: flex;
+    gap: 20px;
+}
+
+.result-details {
+    flex: 1;
+}
+
+.result-store {
+    flex: 1;
+}
+
+.result-link {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.result-link:hover {
+    text-decoration: underline;
+}
+
+.result-item p {
+    margin: 5px 0;
+    color: black;
+}

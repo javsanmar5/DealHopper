@@ -4,7 +4,7 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+<link rel="stylesheet" type="text/css" href="{% static 'css/search_results.css' %}">
 <div>
     <h1>Search Results</h1>
     
@@ -18,17 +18,42 @@
 
 
 {% if results %}
-<ul>
+<ul class="results-list">
     {% for result in results %}
-    <li>
-        <a href="{{ result.link }}">{{ result.smartphone_name }}</a> 
-        - {{ result.store_name }}: ${{ result.price }}
-        {% if result.refurbished %}(Refurbished){% endif %}
-            </li>
-            {% endfor %}
-        </ul>
+    <li class="result-item">
+        <div class="result-content">
+            <div class="result-details">
+                <h3>{{ result.smartphone.name }}</h3>
+                <p><strong>Brand:</strong> {{ result.smartphone_brand|default:"-" }}</p>
+                <p><strong>Color:</strong> {{ result.smartphone_color|default:"-" }}</p>
+                <p><strong>Storage:</strong> {{ result.smartphone_storage|default:"-" }} GB</p>
+                <p><strong>RAM:</strong> {{ result.smartphone_ram|default:"-" }} GB</p>
+                <p><strong>Screen Size:</strong> {{ result.smartphone_screen_size|default:"-" }} inches</p>
+                <p><strong>Battery:</strong> {{ result.smartphone_battery|default:"-" }} mAh</p>
+            </div>
+            <div class="result-store">
+                <p><strong>Store:</strong> {{ result.store_name|default:"-" }}</p>
+                <p><strong>Price:</strong> ${{ result.price|default:"-" }}</p>
+                <p><strong>Condition:</strong> 
+                    {% if result.refurbished %}
+                        Refurbished
+                    {% else %}
+                        New
+                    {% endif %}
+                </p>
+                <a href="{{ result.link }}" target="_blank" class="result-link">
+                    View on {{ result.store_name|default:"-" }}
+                </a>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
 {% else %}
 <p>No results found.</p>
 {% endif %}
+
+
+
 
 {% endblock %}
