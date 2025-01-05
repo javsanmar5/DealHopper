@@ -16,7 +16,7 @@ def about(request):
 def search_view(request):
     query = request.GET.get("search", "")
     results = search_products(query) if query else []
-    return render(request, "search_results.html", {"results": results})
+    return render(request, "search_results.html", {"results": results, "query": query})
 
     
 def fetch_data(request):
