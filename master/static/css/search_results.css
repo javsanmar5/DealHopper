@@ -117,9 +117,22 @@
     padding: 10px 30px;
 }
 
-.recommendation .result-link {
+.search-it-link {
     height: 20px;
+    padding: 10px;
+    color: black;
+    border-radius: 25px;
+    border: 2px solid var(--main-blue);
+    text-decoration: none;
+    transition: background-color ease 0.3s;
 }
+
+.search-it-link:hover {
+    background-color: var(--main-blue);
+    color: white;
+}
+
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column; 

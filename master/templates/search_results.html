@@ -79,7 +79,7 @@
                 {% for recommendation in recommendations %}
                 <div class="recommendation">
                     <h3>{{ recommendation.brand.name|default:"-" }} {{ recommendation.name }}</h3>
-                    <a href="{% url 'search' %}?search={{ recommendation.name }}" class="result-link">
+                    <a href="{% url 'search' %}?search={{ recommendation.name }}" class="search-it-link">
                         Search it!
                     </a>
                 </div>
