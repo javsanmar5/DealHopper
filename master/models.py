@@ -16,7 +16,7 @@ class Brand(models.Model):
 
 class Smartphone(models.Model):
     name = models.CharField(max_length=100)
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
     color = models.CharField(max_length=100, null=True)
     storage = models.IntegerField(null=True)
     ram = models.IntegerField(null=True)

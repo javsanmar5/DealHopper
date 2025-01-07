@@ -157,9 +157,61 @@ def fetch_phonehouse(all_data: bool = True) -> None:
             print(f"Error: {e} while processing item.")
             continue
     
-# TODO: Implement the fetch functions for the rest
 def fetch_backmarket():
-    ...
+    store, created = Store.objects.get_or_create(name='BackMarket')
+
+    base_url = BASE_URLS['backmarket']
+    req = urllib.request.Request(
+                            base_url, 
+                            headers={
+                                'User-Agent': 'Mozilla/5.0',
+                                'Accept-Language': 'en-US,en;q=0.9',  # Needed to avoid 403
+                            }) 
+    f = urllib.request.urlopen(req)
+    soup = BeautifulSoup(f, 'lxml')
+    elements = soup.find('main', class_="w-full").find_all_next("a")
+    with open("backmarket.html", "w") as file:
+        file.write(str(elements))
+    for element in elements:
+        try:
+            link = element['href'] if 'https://www.backmarket.es' in element['href'] else "https://www.backmarket.es" + element['href']
+            req = urllib.request.Request(
+                                    link, 
+                                    headers={
+                                        'User-Agent': 'Mozilla/5.0',
+                                        'Accept-Language': 'en-US,en;q=0.9',  # Needed to avoid 403
+                                    }) 
+            f = urllib.request.urlopen(req)
+            soup = BeautifulSoup(f, 'lxml')
+            title = soup.title.text.split(" - ")
+
+            name = " ".join(title[0].split(" ")[:-1])
+            storage = _clean_value(title[0].split(" ")[-1], "GB")
+            color = title[1]
+            
+            price = soup.find("span", class_="heading-2").text.replace("€", "").replace(",", ".").strip()
+            
+            smartphone_instance, created = Smartphone.objects.get_or_create(name=name, brand=None, color=color, 
+                                                                                storage=storage, ram=None, screen_size=None, 
+                                                                                battery=None)
+            product_instance = Product.objects.filter(smartphone=smartphone_instance, store=store).first()
+
+            if product_instance:
+                product_instance.price = price
+                product_instance.link = link
+                product_instance.refurbished = True
+                product_instance.save()
+            else:
+                Product.objects.create(smartphone=smartphone_instance, store=store, price=price, link=link, refurbished=True)
+        
+        except Exception as e:
+            print(f"Error: {e} while processing item. {title}")
+            continue
+        
+        
+
+    
+# TODO: Implement the fetch functions for the rest
 def fetch_cleverbuy():
     ...
 
