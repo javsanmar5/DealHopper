@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/search_results.css' %}">
 
 <div>
-    <h1>Search results for {{ query }}</h1>
+    <h1>{{ query }}</h1>
     
     <form class="search-container" action="{% url 'search' %}" method="get" onsubmit="return validateSearch()">
         <input type="text" id="search" name="search" placeholder="Search..." class="search-input">
@@ -20,7 +20,6 @@
     <p id="error-message" style="color: red; display: none;">Please enter a phone</p>
 </div>
 
-
 <div class="container">
     <div class="search-results">
         
@@ -30,6 +29,32 @@
                 {% for result in results %}
                 <li class="result-item">
                     <div class="result-content">
+                        <div class="result-image">
+                            {% if result.store_name == "MediaMarkt" %}
+                                <img src="{% static 'images/logo-mediamarkt.png' %}" alt="MediaMarkt" class="shop-img">
+                            {% elif result.store_name == "PhoneHouse" %}
+                                <img src="{% static 'images/logo-phonehouse.jpg' %}" alt="PhoneHouse" class="shop-img">
+                            {% elif result.store_name == "CleverBuy" %}
+                                <img src="{% static 'images/logo-cleverbuy.jpg' %}" alt="CleverBuy" class="shop-img">
+                            {% elif result.store_name == "BackMarket" %}
+                                <img src="{% static 'images/logo-backmarket.jpg' %}" alt="BackMarket" class="shop-img">
+                            {% endif %}
+                            
+                        </div>
+                        <div class="result-store">
+                            <h3>Price: {{result.price}}€</h3>
+                            <h3>Condition: 
+                                {% if result.refurbished %}
+                                Refurbished
+                                {% else %}
+                                New
+                                {% endif %}
+                            </h3>
+                            <br>
+                            <a href="{{ result.link }}" target="_blank" class="result-link">
+                                View on {{ result.store_name|default:"-" }}
+                            </a>
+                        </div>
                         <div class="result-details">
                             <p><strong>Brand:</strong> {{ result.smartphone_brand|default:"-" }}</p>
                             <p><strong>Color:</strong> {{ result.smartphone_color|default:"-" }}</p>
@@ -37,20 +62,6 @@
                             <p><strong>RAM:</strong> {{ result.smartphone_ram|default:"-" }} GB</p>
                             <p><strong>Screen Size:</strong> {{ result.smartphone_screen_size|default:"-" }} inches</p>
                             <p><strong>Battery:</strong> {{ result.smartphone_battery|default:"-" }} mAh</p>
-                        </div>
-                        <div class="result-store">
-                            <p><strong>Store:</strong> {{ result.store_name|default:"-" }}</p>
-                            <p><strong>Price:</strong> ${{ result.price|default:"-" }}</p>
-                            <p><strong>Condition:</strong> 
-                                {% if result.refurbished %}
-                                    Refurbished
-                                {% else %}
-                                    New
-                                {% endif %}
-                            </p>
-                            <a href="{{ result.link }}" target="_blank" class="result-link">
-                                View on {{ result.store_name|default:"-" }}
-                            </a>
                         </div>
                     </div>
                 </li>
@@ -63,28 +74,15 @@
 
     <div class="recommendations">
         {% if recommendations %}
-            <h2>Recommended Similar Smartphones</h2>
+            <h2>Recommended similar smartphones</h2>
             <ul class="results-list">
                 {% for recommendation in recommendations %}
-                <li class="result-item">
-                    <div class="result-content">
-                        <div class="result-details">
-                            <h3>{{ recommendation.name }}</h3>
-                            <p><strong>Brand:</strong> {{ recommendation.brand.name|default:"-" }}</p>
-                            <p><strong>Color:</strong> {{ recommendation.color|default:"-" }}</p>
-                            <p><strong>Storage:</strong> {{ recommendation.storage|default:"-" }} GB</p>
-                            <p><strong>RAM:</strong> {{ recommendation.ram|default:"-" }} GB</p>
-                            <p><strong>Screen Size:</strong> {{ recommendation.screen_size|default:"-" }} inches</p>
-                            <p><strong>Battery:</strong> {{ recommendation.battery|default:"-" }} mAh</p>
-                        </div>
-                        <div class="result-store">
-                            <p><strong>Price:</strong> ${{ recommendation.product_set.first.price|default:"-" }}</p>
-                            <a href="{{ recommendation.product_set.first.link }}" target="_blank" class="result-link">
-                                View on {{ recommendation.product_set.first.store.name|default:"-" }}
-                            </a>
-                        </div>
-                    </div>
-                </li>
+                <div class="recommendation">
+                    <h3>{{ recommendation.brand.name|default:"-" }} {{ recommendation.name }}</h3>
+                    <a href="{% url 'search' %}?search={{ recommendation.name }}" class="result-link">
+                        Search it!
+                    </a>
+                </div>
                 {% endfor %}
             </ul>
         {% endif %}
