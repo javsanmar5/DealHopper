@@ -12,9 +12,8 @@ def recommend_similar_smartphones(smartphone_vector, n=5):
     ]
     scores.sort(reverse=True) 
     
-    top_smartphone_ids = [other_id for _, other_id in scores[:n]]
-    recommended_smartphones = Smartphone.objects.filter(id__in=top_smartphone_ids)
-
+    top_smartphone_ids = [other_id for _, other_id in scores][:n]
+    recommended_smartphones = Smartphone.objects.filter(id__in=top_smartphone_ids).values_list('name', flat=True).distinct()
     return recommended_smartphones
 
 def _sim_distance_content(item1, item2):

@@ -42,6 +42,7 @@
                             
                         </div>
                         <div class="result-store">
+                            <h3>{{result.smartphone_name}}</h3>
                             <h3>Price: {{result.price}}€</h3>
                             <h3>Condition: 
                                 {% if result.refurbished %}
@@ -78,8 +79,8 @@
             <ul class="results-list">
                 {% for recommendation in recommendations %}
                 <div class="recommendation">
-                    <h3>{{ recommendation.brand.name|default:"-" }} {{ recommendation.name }}</h3>
-                    <a href="{% url 'search' %}?search={{ recommendation.name }}" class="search-it-link">
+                    <h3>{{ recommendation }}</h3>
+                    <a href="{% url 'search' %}?search={{ recommendation }}" class="search-it-link">
                         Search it!
                     </a>
                 </div>

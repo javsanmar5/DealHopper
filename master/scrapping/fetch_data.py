@@ -35,7 +35,7 @@ def scrap_data(shop: str) -> None:
         case 'all':
             fetch_mediamarkt()
             fetch_phonehouse()
-            fetch_backmarket()
+            # fetch_backmarket()
             fetch_cleverbuy()
         case _:
             raise ValueError(f"Invalid parameter: {shop}")
@@ -106,7 +106,7 @@ def fetch_mediamarkt(num_pages: int = 5) -> None:
                 continue
                 
 
-def fetch_phonehouse(all_data: bool = True) -> None:
+def fetch_phonehouse() -> None:
     store, created = Store.objects.get_or_create(name='PhoneHouse')
 
     base_url = BASE_URLS['phonehouse']
@@ -117,27 +117,32 @@ def fetch_phonehouse(all_data: bool = True) -> None:
 
     for element in elements:
         try:
-            name_and_brand = element.find('h3', class_="marca-item").text
-            name_and_brand = _clean_smartphone_data(name_and_brand)
-            
-            brand = name_and_brand.split(' ')[0].upper()
-            name = " ".join(name_and_brand.split(' ')[1:]).capitalize()
             color = element.find('h3', class_="marca-item").text.split(" ")[-1].capitalize()
 
             price = _parse_price(element.find("span", class_="precio precio-2").text)
             link = "https://www.phonehouse.es" + element.a['href']
             
-            if not all_data:
-                storage, ram, screen_size, battery = None, None, None, None
-            else:
-                req = urllib.request.Request(link) 
-                f = urllib.request.urlopen(req)
-                soup = BeautifulSoup(f, 'lxml')
+            req = urllib.request.Request(link) 
+            f = urllib.request.urlopen(req)
+            soup = BeautifulSoup(f, 'lxml')
 
-                storage = int(soup.find("div", text="Memoria Interna").find_next_sibling("div").text.replace('GB', '').replace('MB', ''))
+            name_and_brand = soup.find("div", class_="buy-box-1").find_next('h1').text
+            name_and_brand = _clean_smartphone_data(name_and_brand)
+            brand = name_and_brand.split(' ')[0].upper()
+            name = " ".join(name_and_brand.split(' ')[1:]).capitalize()
+            
+            storage = int(soup.find("div", text="Memoria Interna").find_next_sibling("div").text.replace('GB', '').replace('MB', ''))
+            screen_size = Decimal(soup.find("div", text="Tamaño de pantalla").find_next_sibling("div").text[:3])
+
+            try:
                 ram = int(soup.find("div", text="Memoria RAM").find_next_sibling("div").text.replace('GB', '').replace('MB', ''))
-                screen_size = Decimal(soup.find("div", text="Tamaño de pantalla").find_next_sibling("div").text[:3])
+            except:
+                ram = None                
+            
+            try:
                 battery = int(soup.find("div", text="Capacidad batería").find_next_sibling("div").text.replace('mAh', ''))
+            except:
+                battery = None                
             
             brand_instance, created = Brand.objects.get_or_create(name=brand)
             smartphone_instance, created = Smartphone.objects.get_or_create(name=name, brand=brand_instance, color=color, 
@@ -240,6 +245,7 @@ def _parse_price(price_str: str) -> Decimal:
 def _clean_smartphone_data(data: str) -> str:
     data = re.sub(r"\b(4G|5G)\b", "", data)
     data = re.sub(r"\b\d+GB(\+\d+GB)? RAM\b", "", data)
+    data = re.sub(r"\b\d+GB\b", "", data)
     data = re.sub(r"(?:\b[a-zA-Záéíóúñ]+\b(?:\s\b[a-zA-Záéíóúñ]+\b)?$)", "", data)
     data = re.sub(r"\s{2,}", " ", data).strip()
     return data
