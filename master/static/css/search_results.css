@@ -1,4 +1,4 @@
-.results-list {
+/* .results-list {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -37,4 +37,74 @@
 .result-item p {
     margin: 5px 0;
     color: black;
+} */
+
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
 }
+
+.search-results {
+    flex: 2;
+    max-width: 66%;
+}
+
+.recommendations {
+    flex: 1;
+    max-width: 33%;
+}
+
+.results-list {
+    list-style: none;
+    padding: 0;
+}
+
+.result-item {
+    margin-bottom: 20px;
+}
+
+.result-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.result-details, .result-store {
+    width: 48%; /* Adjust the width for two columns in result content */
+}
+
+.shop-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; 
+    border-radius: 25px;
+}
+
+/* Make it responsive for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+    }
+
+    .search-results {
+        max-width: 100%; /* Full width on small screens */
+    }
+
+    .recommendations {
+        max-width: 100%; /* Full width on small screens */
+        margin-top: 20px; /* Add space between the results and recommendations */
+    }
+}
+
+@media (max-width: 480px) {
+    .result-content {
+        flex-direction: column; /* Stack result details and store info vertically */
+    }
+
+    .result-details, .result-store {
+        width: 100%; /* Full width for mobile */
+    }
+}
+

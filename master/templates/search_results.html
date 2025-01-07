@@ -7,8 +7,9 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" type="text/css" href="{% static 'css/search_results.css' %}">
+
 <div>
-    <h1>Search results for {{query}}</h1>
+    <h1>Search results for {{ query }}</h1>
     
     <form class="search-container" action="{% url 'search' %}" method="get" onsubmit="return validateSearch()">
         <input type="text" id="search" name="search" placeholder="Search..." class="search-input">
@@ -20,43 +21,74 @@
 </div>
 
 
-{% if results %}
-<ul class="results-list">
-    {% for result in results %}
-    <li class="result-item">
-        <div class="result-content">
-            <div class="result-details">
-                <h3>{{ result.smartphone.name }}</h3>
-                <p><strong>Brand:</strong> {{ result.smartphone_brand|default:"-" }}</p>
-                <p><strong>Color:</strong> {{ result.smartphone_color|default:"-" }}</p>
-                <p><strong>Storage:</strong> {{ result.smartphone_storage|default:"-" }} GB</p>
-                <p><strong>RAM:</strong> {{ result.smartphone_ram|default:"-" }} GB</p>
-                <p><strong>Screen Size:</strong> {{ result.smartphone_screen_size|default:"-" }} inches</p>
-                <p><strong>Battery:</strong> {{ result.smartphone_battery|default:"-" }} mAh</p>
-            </div>
-            <div class="result-store">
-                <p><strong>Store:</strong> {{ result.store_name|default:"-" }}</p>
-                <p><strong>Price:</strong> ${{ result.price|default:"-" }}</p>
-                <p><strong>Condition:</strong> 
-                    {% if result.refurbished %}
-                        Refurbished
-                    {% else %}
-                        New
-                    {% endif %}
-                </p>
-                <a href="{{ result.link }}" target="_blank" class="result-link">
-                    View on {{ result.store_name|default:"-" }}
-                </a>
-            </div>
-        </div>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No results found.</p>
-{% endif %}
+<div class="container">
+    <div class="search-results">
+        
+        {% if results %}
+            <h2>Search Results</h2>
+            <ul class="results-list">
+                {% for result in results %}
+                <li class="result-item">
+                    <div class="result-content">
+                        <div class="result-details">
+                            <p><strong>Brand:</strong> {{ result.smartphone_brand|default:"-" }}</p>
+                            <p><strong>Color:</strong> {{ result.smartphone_color|default:"-" }}</p>
+                            <p><strong>Storage:</strong> {{ result.smartphone_storage|default:"-" }} GB</p>
+                            <p><strong>RAM:</strong> {{ result.smartphone_ram|default:"-" }} GB</p>
+                            <p><strong>Screen Size:</strong> {{ result.smartphone_screen_size|default:"-" }} inches</p>
+                            <p><strong>Battery:</strong> {{ result.smartphone_battery|default:"-" }} mAh</p>
+                        </div>
+                        <div class="result-store">
+                            <p><strong>Store:</strong> {{ result.store_name|default:"-" }}</p>
+                            <p><strong>Price:</strong> ${{ result.price|default:"-" }}</p>
+                            <p><strong>Condition:</strong> 
+                                {% if result.refurbished %}
+                                    Refurbished
+                                {% else %}
+                                    New
+                                {% endif %}
+                            </p>
+                            <a href="{{ result.link }}" target="_blank" class="result-link">
+                                View on {{ result.store_name|default:"-" }}
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
 
-
-
+    <div class="recommendations">
+        {% if recommendations %}
+            <h2>Recommended Similar Smartphones</h2>
+            <ul class="results-list">
+                {% for recommendation in recommendations %}
+                <li class="result-item">
+                    <div class="result-content">
+                        <div class="result-details">
+                            <h3>{{ recommendation.name }}</h3>
+                            <p><strong>Brand:</strong> {{ recommendation.brand.name|default:"-" }}</p>
+                            <p><strong>Color:</strong> {{ recommendation.color|default:"-" }}</p>
+                            <p><strong>Storage:</strong> {{ recommendation.storage|default:"-" }} GB</p>
+                            <p><strong>RAM:</strong> {{ recommendation.ram|default:"-" }} GB</p>
+                            <p><strong>Screen Size:</strong> {{ recommendation.screen_size|default:"-" }} inches</p>
+                            <p><strong>Battery:</strong> {{ recommendation.battery|default:"-" }} mAh</p>
+                        </div>
+                        <div class="result-store">
+                            <p><strong>Price:</strong> ${{ recommendation.product_set.first.price|default:"-" }}</p>
+                            <a href="{{ recommendation.product_set.first.link }}" target="_blank" class="result-link">
+                                View on {{ recommendation.product_set.first.store.name|default:"-" }}
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</div>
 
 {% endblock %}

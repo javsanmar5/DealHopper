@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 
 from master.models import Smartphone
 
+from .recommendation.recommendation import recommend_similar_smartphones
 from .scrapping.fetch_data import scrap_data
 from .search.search import search_products
 
@@ -10,15 +11,30 @@ def home(request):
     phone_names = Smartphone.objects.values_list('name', flat=True).distinct()
     return render(request, "home.html", {'phones': phone_names})
 
+
 def about(request):
     return render(request, "about.html")
+    
     
 def search_view(request):
     query = request.GET.get("search", "")
     results = search_products(query) if query else []
-    return render(request, "search_results.html", {"results": results, "query": query})
+    recommendations = []
+    if results: 
+        smartphone_vector = _get_smartphone_vector(results[0])
+        recommendations = recommend_similar_smartphones(smartphone_vector)
+        
+    return render(request, "search_results.html", {"results": results, "query": query, "recommendations": recommendations})
 
+def _get_smartphone_vector(smartphone: dict) -> list:
+    return [
+        smartphone.get("smartphone_ram"),
+        smartphone.get("smartphone_screen_size"),
+        smartphone.get("smartphone_storage"),
+        smartphone.get("smartphone_battery"),
+    ]
     
+
 def fetch_data(request):
 
     if request.method == "GET" and request.GET.keys():

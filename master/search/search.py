@@ -2,7 +2,6 @@ from whoosh.qparser import MultifieldParser
 
 from master.search.indexer import _create_product_index
 
-
 def search_products(query):
     ix = _create_product_index()
     with ix.searcher() as searcher:
