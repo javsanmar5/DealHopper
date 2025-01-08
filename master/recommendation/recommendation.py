@@ -23,10 +23,10 @@ def _get_all_smartphones():
     smartphones = Smartphone.objects.all()
     smartphone_vectors = {
         smartphone.id: [
-            smartphone.ram or 0,
-            smartphone.screen_size or 0,
-            smartphone.storage or 0,
-            smartphone.battery or 0,
+            float(smartphone.ram) if smartphone.ram is not None else 0.0,
+            float(smartphone.screen_size) if smartphone.screen_size is not None else 0.0,
+            float(smartphone.storage) if smartphone.storage is not None else 0.0,
+            float(smartphone.battery) if smartphone.battery is not None else 0.0,
         ]
         for smartphone in smartphones
     }

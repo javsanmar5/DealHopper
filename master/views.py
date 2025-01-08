@@ -28,10 +28,10 @@ def search_view(request):
 
 def _get_smartphone_vector(smartphone: dict) -> list:
     return [
-        smartphone.get("smartphone_ram"),
-        smartphone.get("smartphone_screen_size"),
-        smartphone.get("smartphone_storage"),
-        smartphone.get("smartphone_battery"),
+        float(smartphone.get("smartphone_ram", 0) or 0),
+        float(smartphone.get("smartphone_screen_size", 0) or 0),
+        float(smartphone.get("smartphone_storage", 0) or 0),
+        float(smartphone.get("smartphone_battery", 0) or 0),
     ]
     
 

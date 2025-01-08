@@ -41,7 +41,7 @@ def index_products():
         writer.add_document(
             unique_id=unique_id,
             smartphone_name=smartphone.name,
-            smartphone_brand=smartphone.brand.name,
+            smartphone_brand=smartphone.brand.name if smartphone.brand else "",
             smartphone_color=smartphone.color if smartphone.color else "",
             smartphone_storage=smartphone.storage if smartphone.storage is not None else 0,
             smartphone_ram=smartphone.ram if smartphone.ram is not None else 0,
