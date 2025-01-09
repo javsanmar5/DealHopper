@@ -19,14 +19,14 @@
 <div class="about-section">
     <h2>DealHopper</h2>
     <p>
-        DealHopper is a smartphone price comparator designed to help users find the best deals across multiple online stores, such as MediaMarkt, PhoneHouse, Backmarket and Cleverbuy. With its intuitive interface and powerful features, DealHopper simplifies the process of price comparison and recommendation.
+        DealHopper is a smartphone price comparator designed to help users find the best deals across multiple online stores, such as MediaMarkt, PhoneHouse and Backmarket. With its intuitive interface and powerful features, DealHopper simplifies the process of price comparison and recommendation.
     </p>
 </div>
 <div class="technologies-section">
     <h2>Technologies</h2>
     <p>DealHopper is built using the following tools and frameworks:</p>
     <ul>
-        <li><span>Django:</span> Backend framework for managing the web application.</li>
+        <li><span>Django:</span> Framework for managing the web application.</li>
         <li><span>BeautifulSoup:</span> For scraping smartphone prices and details from online stores.</li>
         <li><span>Whoosh:</span> For implementing an efficient search index.</li>
         <li><span>Recommendation System (RS):</span> Provides personalized recommendations based on user preferences.</li>
@@ -35,14 +35,15 @@
 <div class="information-section">
     <h2>Important Information</h2>
     <p>
-        The shop <strong>MediaMarkt</strong> uses lazy loading for its content, which makes using 
-        <em>BeautifulSoup</em> suboptimal. However, this project is focused on learning, and the use of this technology 
-        is intentional for educational purposes.
+        Some online stores use lazy loading for their content, which makes tools like 
+        <em>BeautifulSoup</em> less effective. An alternative approach would be to use <em>Selenium</em> or other 
+        interface automation tools to handle dynamically loaded content. However, this project prioritizes learning, 
+        and the use of <em>BeautifulSoup</em> is intentional for educational purposes.
     </p>
     <p>
-        The shop <strong>MásMovil</strong> features custom prices that vary across different months, making direct 
-        comparisons more challenging. Despite this, it is included as there were limited alternative options. 
-        Other shops, such as <strong>PcComponentes</strong> and <strong>ElCorteInglés</strong>, return a 
+        Other stores feature dynamic pricing that varies over time, making direct comparisons more challenging. Despite this, they are included due to the limited availability of alternative options.
+
+        Also, there are shops, such as <strong>PcComponentes</strong> and <strong>ElCorteInglés</strong>, which return a 
         <code>403 Forbidden</code> response when accessed via Python's HTTP libraries.
     </p>
 </div>

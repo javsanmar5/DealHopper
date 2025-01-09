@@ -10,7 +10,7 @@ def search_products(query):
             schema=ix.schema
         )
         parsed_query = parser.parse(query)
-        results = searcher.search(parsed_query)
+        results = searcher.search(parsed_query, sortedby="price")
         return [
             {
                 "smartphone_name": r["smartphone_name"],
