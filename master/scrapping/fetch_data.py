@@ -76,7 +76,7 @@ def fetch_mediamarkt(num_pages: int = 5) -> None:
                 
                 price = _parse_price(element.find_all('span', class_="sc-e0c7d9f7-0 bPkjPs")[-1].text)
 
-                link = "https://www.mediamarkt.es" + element.find('a', class_="sc-2fa46f1d-1 hHoKle sc-66851cef-0 dEaRKk")['href']
+                link = "https://www.mediamarkt.es" + element.find('a', class_="sc-35c6ad71-1 dxFAqR sc-66851cef-0 dEaRKk")['href']
 
                 brand_instance, created = Brand.objects.get_or_create(name=brand)
                 smartphone_instance, created = Smartphone.objects.update_or_create(
@@ -175,7 +175,11 @@ def fetch_backmarket():
     for element in elements:
         try:
             name = element.find("span", class_="body-1-bold line-clamp-2").text
-            price = element.find("div", class_="text-static-default-hi body-2-bold").text.replace("€", "").replace(",", ".").strip()
+
+            try:
+                price = soup.find("div", class_="text-static-default-hi body-2-bold").text.replace("€", "").replace(",", ".").strip()
+            except:
+                price = None
 
             try:
                 link = element['href'] if 'https://www.backmarket.es' in element['href'] else "https://www.backmarket.es" + element['href']
