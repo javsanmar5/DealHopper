@@ -99,3 +99,12 @@
     width: fit-content;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.no-phones-message a {
+    color: var(--main-blue);
+    text-decoration: none;
+}
+
+.no-phones-message a:hover {
+    text-decoration: underline;
+}
