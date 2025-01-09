@@ -1,10 +1,10 @@
 # DealHopper
 
-DealHopper is a smartphone price comparator designed to help users find the best deals across multiple online stores, such as MediaMarkt, PhoneHouse, Backmarket and Cleverbuy. With its intuitive interface and powerful features, DealHopper simplifies the process of price comparison and recommendation.
+DealHopper is a smartphone price comparator designed to help users find the best deals across multiple online stores, such as MediaMarkt, PhoneHouse and Backmarket. With its intuitive interface and powerful features, DealHopper simplifies the process of price comparison and recommendation.
 
 ## Technologies Used
 DealHopper is built using the following tools and frameworks:
-- **Django**: Backend framework for managing the web application.
+- **Django**: Framework for managing the web application.
 - **BeautifulSoup**: For scraping smartphone prices and details from online stores.
 - **Whoosh**: For implementing an efficient search index.
 - **Recommendation System (RS)**: Provides personalized recommendations based on user preferences.
