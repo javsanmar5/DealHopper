@@ -19,7 +19,6 @@ BASE_URLS = {
     'mediamarkt': 'https://www.mediamarkt.es/es/category/smartphones-263.html',
     'phonehouse': 'https://www.phonehouse.es/moviles-y-telefonia/moviles/todos-los-smartphones.html',
     'backmarket': 'https://www.backmarket.es/es-es/l/smartphoness/6c290010-c0c2-47a4-b68a-ac2ec2b64dca',
-    'cleverbuy': 'https://www.cleverbuy.es/smartphones/',
 }
 
 def scrap_data(shop: str) -> None:
@@ -30,13 +29,10 @@ def scrap_data(shop: str) -> None:
             fetch_phonehouse()
         case 'backmarket':
             fetch_backmarket()
-        case 'cleverbuy':
-            fetch_cleverbuy()
         case 'all':
             fetch_mediamarkt()
             fetch_phonehouse()
             fetch_backmarket()
-            fetch_cleverbuy()
         case _:
             raise ValueError(f"Invalid parameter: {shop}")
         
@@ -219,13 +215,6 @@ def fetch_backmarket():
             continue
         
         
-
-    
-# TODO: Implement the fetch functions for the rest
-def fetch_cleverbuy():
-    ...
-
-
 def _find_by_keyword(content, keyword, exclude=None):
     for item in content:
         if keyword in item and (exclude is None or exclude not in item):

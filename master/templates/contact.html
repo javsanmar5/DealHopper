@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/contact.css' %}">
+
+<section>
+    <h1>Contact</h1>
+    <p>
+        My name is Javier Santos, and I welcome any feedback, questions, or suggestions regarding this project. 
+        Whether you have a specific inquiry or wish to discuss potential improvements, feel free to reach out.
+    </p>
+    <p>
+        Below are the channels through which I can be contacted:
+    </p>
+</section>
+<div class="email-section">
+    <h2>Email</h2>
+    <p>
+        You can reach me via email at:
+    </p>
+    <br>
+    <ul class="mails">
+        <li><a class="mail-link" href="mailto:javsanmar5@alum.us.es">javsanmar5@alum.us.es</a></li>
+        <li><a class="mail-link" href="mailto:javier.jsm21@gmail.com">javier.jsm21@gmail.com</a></li>
+    </ul>
+</div>
+{% comment %} <div class="contact-section">
+    <h2>GitHub</h2>
+    <p>
+        Check out my projects on GitHub: 
+        <a class="link" href="https://github.com/javsanmar5" target="_blank">
+            https://github.com/javsanmar5
+        </a>
+    </p>
+</div> {% endcomment %}
+
+{% endblock %}

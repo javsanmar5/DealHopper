@@ -26,13 +26,6 @@
         </button>
     </form>
 
-    <form method="post" action="{% url 'fetch_data' %}?shop=cleverbuy">
-        {% csrf_token %}
-        <button class="fetch-one-web" type="submit">
-            <img src="{% static 'images/logo-cleverbuy.jpg' %}" alt="Cleverbuy" class="shop-img">
-        </button>
-    </form>
-    
     <form method="post" action="{% url 'fetch_data' %}?shop=backmarket">
         {% csrf_token %}
         <button class="fetch-one-web" type="submit">
